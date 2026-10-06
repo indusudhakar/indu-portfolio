@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Personal portfolio website">
+  <title>My Portfolio</title>
+
+  <style>
+    /* =========================
+       RESET & GLOBAL STYLES
+    ========================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    section {
+      padding: 90px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      color: #38bdf8;
+    }
+
+    .section-title p {
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    nav {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+      color: #38bdf8;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: #cbd5e1;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #38bdf8;
+    }
+
+    .menu-btn {
+      display: none;
+      font-size: 28px;
+      cursor: pointer;
+      color: white;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+    #home {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: 100px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .hero-text h1 {
+      font-size: 55px;
+      line-height: 1.1;
+      margin-bottom: 15px;
+    }
+
+    .hero-text h1 span {
+      color: #38bdf8;
+    }
+
+    .hero-text h3 {
+      font-size: 25px;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      color: #94a3b8;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .primary-btn {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    .primary-btn:hover {
+      background: #0ea5e9;
+      transform: translateY(-3px);
+    }
+
+    .secondary-btn {
+      border: 1px solid #38bdf8;
+      color: #38bdf8;
+    }
+
+    .secondary-btn:hover {
+      background: #38bdf8;
+      color: #0f172a;
+    }
+
+    /* Profile Circle */
+    .profile-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile {
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 100px;
+      box-shadow: 0 0 60px rgba(56, 189, 248, 0.25);
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+    #about {
+      background: #111827;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-content p {
+      color: #94a3b8;
+      margin-bottom: 15px;
+    }
+
+    .info-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+    }
+
+    .info h4 {
+      color: #38bdf8;
+      margin-bottom: 5px;
+    }
+
+    .info p {
+      margin: 0;
+    }
+
+    /* =========================
+       SKILLS
+    ========================== */
+    .skills-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .skill {
+      background: #1e293b;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .skill-header span:last-child {
+      color: #38bdf8;
+    }
+
+    .skill-bar {
+      width: 100%;
+      height: 10px;
+      background: #334155;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #38bdf8, #6366f1);
+      border-radius: 10px;
+    }
+
+    /* =========================
+       PROJECTS
+    ========================== */
+    #projects {
+      background: #111827;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .project-card {
+      background: #1e293b;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #334155;
+      transition: 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: #38bdf8;
+    }
+
+    .project-image {
+      height: 180px;
+      background: linear-gradient(135deg, #38bdf8, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+    }
+
+    .project-content {
+      padding: 22px;
+    }
+
+    .project-content h3 {
+      margin-bottom: 10px;
+    }
+
+    .project-content p {
+      color: #94a3b8;
+      margin-bottom: 15px;
+    }
+
+    .project-link {
+      color: #38bdf8;
+      font-weight: bold;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+    .contact-container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      background: #1e293b;
+      color: white;
+      outline: none;
+      font-size: 16px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #38bdf8;
+    }
+
+    textarea {
+      height: 150px;
+      resize: vertical;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #form-message {
+      color: #38bdf8;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+    footer {
+      background: #020617;
+      padding: 25px;
+      text-align: center;
+      color: #94a3b8;
+    }
+
+    .social-links {
+      margin-bottom: 10px;
+    }
+
+    .social-links a {
+      margin: 0 10px;
+      color: #38bdf8;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+    @media (max-width: 800px) {
+      .menu-btn {
+        display: block;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0f172a;
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-text p {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .buttons {
+        justify-content: center;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+
+      .skills-container {
+        grid-template-columns: 1fr;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-text h1 {
+        font-size: 42px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .info-box {
+        grid-template-columns: 1fr;
+      }
+
+      .profile {
+        width: 220px;
+        height: 220px;
+        font-size: 70px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">MyPortfolio</div>
+
+        <div class="menu-btn" id="menuBtn">
+          ☰
+        </div>
+
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- =========================
+       HOME
+  ========================== -->
+  <section id="home">
+    <div class="container hero">
+
+      <div class="hero-text">
+        <h1>Hello, I'm <span>indu</span></h1>
+
+        <h3>Web Developer & Designer</h3>
+
+        <p>
+          I create modern, responsive and user-friendly websites
+          using HTML, CSS, JavaScript and modern web technologies.
+        </p>
+
+        <div class="buttons">
+          <a href="#projects" class="btn primary-btn">
+            View My Work
+          </a>
+
+          <a href="#contact" class="btn secondary-btn">
+            Contact Me
+          </a>
+        </div>
+      </div>
+
+      <div class="profile-container">
+        <div class="profile">
+          👨‍💻
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================
+       ABOUT
+  ========================== -->
+  <section id="about">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>About Me</h2>
+        <p>Get to know me</p>
+      </div>
+
+      <div class="about-content">
+
+        <div>
+          <p>
+            I'm a passionate web developer who enjoys creating
+            beautiful and functional websites.
+          </p>
+
+          <p>
+            I focus on writing clean code and building responsive
+            websites that work well on desktop, tablet and mobile.
+          </p>
+
+          <p>
+            I am always interested in learning new technologies
+            and improving my development skills.
+          </p>
+        </div>
+
+        <div class="info-box">
+
+          <div class="info">
+            <h4>Name</h4>
+            <p>indu</p>
+          </div>
+
+          <div class="info">
+            <h4>Email</h4>
+            <p>you@example.com</p>
+          </div>
+
+          <div class="info">
+            <h4>Location</h4>
+            <p>kuppam India</p>
+          </div>
+
+          <div class="info">
+            <h4>Experience</h4>
+            <p>2+ Years</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       SKILLS
+  ========================== -->
+  <section id="skills">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>My Skills</h2>
+        <p>Technologies I work with</p>
+      </div>
+
+      <div class="skills-container">
+
+        <div class="skill">
+          <div class="skill-header">
+            <span>HTML</span>
+            <span>95%</span>
+          </div>
+
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 95%;"></div>
+          </div>
+        </div>
+
+        <div class="skill">
+          <div class="skill-header">
+            <span>CSS</span>
+            <span>90%</span>
+          </div>
+
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 90%;"></div>
+          </div>
+        </div>
+
+        <div class="skill">
+          <div class="skill-header">
+            <span>JavaScript</span>
+            <span>85%</span>
+          </div>
+
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 85%;"></div>
+          </div>
+        </div>
+
+        <div class="skill">
+          <div class="skill-header">
+            <span>React</span>
+            <span>80%</span>
+          </div>
+
+          <div class="skill-bar">
+            <div class="skill-progress" style="width: 80%;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       PROJECTS
+  ========================== -->
+  <section id="projects">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>My Projects</h2>
+        <p>Some of my recent work</p>
+      </div>
+
+      <div class="projects-grid">
+
+        <div class="project-card">
+
+          <div class="project-image">
+            🌐
+          </div>
+
+          <div class="project-content">
+            <h3>Portfolio Website</h3>
+
+            <p>
+              A modern responsive portfolio website built
+              using HTML, CSS and JavaScript.
+            </p>
+
+            <a href="#" class="project-link">
+              View Project →
+            </a>
+          </div>
+
+        </div>
+
+
+        <div class="project-card">
+
+          <div class="project-image">
+            🛒
+          </div>
+
+          <div class="project-content">
+            <h3>E-Commerce Website</h3>
+
+            <p>
+              A responsive online shopping website with
+              product cards and modern UI.
+            </p>
+
+            <a href="#" class="project-link">
+              View Project →
+            </a>
+          </div>
+
+        </div>
+
+
+        <div class="project-card">
+
+          <div class="project-image">
+            📱
+          </div>
+
+          <div class="project-content">
+            <h3>Mobile App UI</h3>
+
+            <p>
+              A clean and modern mobile application interface
+              designed for a better user experience.
+            </p>
+
+            <a href="#" class="project-link">
+              View Project →
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       CONTACT
+  ========================== -->
+  <section id="contact">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Contact Me</h2>
+        <p>Let's work together</p>
+      </div>
+
+      <div class="contact-container">
+
+        <form id="contactForm">
+
+          <input
+            type="text"
+            id="name"
+            placeholder="Your Name"
+            required
+          >
+
+          <input
+            type="email"
+            id="email"
+            placeholder="Your Email"
+            required
+          >
+
+          <textarea
+            id="message"
+            placeholder="Your Message"
+            required
+          ></textarea>
+
+          <button
+            type="submit"
+            class="btn primary-btn"
+          >
+            Send Message
+          </button>
+
+        </form>
+
+        <p id="form-message"></p>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+  <footer>
+
+    <div class="social-links">
+      <a href="#">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Instagram</a>
+    </div>
+
+    <p>
+      © <span id="year"></span> indu. All Rights Reserved.
+    </p>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+  <script>
+
+    // Mobile menu
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.getElementById("navLinks");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
+
+
+    // Close mobile menu when clicking a link
+    document.querySelectorAll(".nav-links a").forEach(link => {
+
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("active");
+      });
+
+    });
+
+
+    // Contact form
+    const contactForm = document.getElementById("contactForm");
+    const formMessage = document.getElementById("form-message");
+
+    contactForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const name = document.getElementById("name").value;
+
+      formMessage.textContent =
+        `Thanks ${name}! Your message has been received.`;
+
+      contactForm.reset();
+
+    });
+
+
+    // Current year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+  </script>
+
+</body>
+</html>
